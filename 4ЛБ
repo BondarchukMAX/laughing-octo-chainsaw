@@ -1,0 +1,41 @@
+filename = "schedule.txt"
+subjects_set = set()
+lectures_count = 0
+practicals_count = 0
+labs_count = 0
+
+
+with open(filename, "r", encoding="utf-8") as file:
+    for line in file:
+        line = line.strip()
+        
+       
+        if not line or line.lower() in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]:
+            continue
+        
+        
+        subjects = line.split(", ")
+        
+        for subject in subjects:
+            
+            if "(" in subject and ")" in subject:
+                name, type_ = subject.split(" (")
+                name = name.strip()
+                type_ = type_.strip(")").lower()
+                
+                
+                subjects_set.add(name)
+                
+                
+                if type_ == "лекція":
+                    lectures_count += 1
+                elif type_ == "практична":
+                    practicals_count += 1
+                elif type_ == "лабораторна":
+                    labs_count += 1
+
+
+print(f"Кількість різних предметів: {len(subjects_set)}")
+print(f"Кількість лекцій: {lectures_count}")
+print(f"Кількість практичних занять: {practicals_count}")
+print(f"Кількість лабораторних занять: {labs_count}")
